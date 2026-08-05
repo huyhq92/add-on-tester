@@ -3,7 +3,7 @@ const { addonBuilder, getRouter } = require('stremio-addon-sdk');
 const manifest = {
     id: "org.thayhuy.ophim",
     name: "OPhim của Thầy HUY",
-    version: "1.0.7",
+    version: "1.0.8",
     description: "Addon xem phim tổng hợp từ OPhim",
     icon: "https://raw.githubusercontent.com/huyhq92/add-on-tester/refs/heads/main/ophim/ophim.ico",
     resources: ["catalog", "meta", "stream"],
@@ -118,11 +118,10 @@ builder.defineStreamHandler(async function(args) {
     }
 });
 
-// Khởi tạo router của Stremio
+// Khởi tạo router và xuất hàm xử lý Serverless trực tiếp cho Vercel
 const addonInterface = builder.getInterface();
 const router = getRouter(addonInterface);
 
-// Xuất bản dưới dạng Serverless Handler tương thích 100% với Vercel
 module.exports = (req, res) => {
     router(req, res, () => {
         res.statusCode = 404;
