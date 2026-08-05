@@ -1,10 +1,10 @@
-const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
+const { addonBuilder } = require('stremio-addon-sdk');
 
 const manifest = {
     id: "org.thayhuy.ophim",
     name: "OPhim của Thầy HUY",
-    version: "1.0.4",
-    description: "Addon tổng hợp phim từ OPhim",
+    version: "1.0.5",
+    description: "Addon xem phim tổng hợp từ OPhim",
     icon: "https://raw.githubusercontent.com/huyhq92/add-on-tester/refs/heads/main/ophim/ophim.ico",
     resources: ["catalog", "meta", "stream"],
     types: ["movie", "series"],
@@ -23,11 +23,10 @@ function getImageUrl(path) {
     return "https://img.ophim.live/uploads/movies/" + path;
 }
 
-// 1. Tự động gọi API OPhim lấy danh sách khi Stremio yêu cầu catalog
 builder.defineCatalogHandler(async function(args) {
     try {
-        const res = await fetch(`${BASE_API}/danh-sach/phim-moi?page=1`);
-        const json = await res.json();
+        const response = await fetch(`${BASE_API}/danh-sach/phim-moi?page=1`);
+        const json = await response.json();
         const items = json.data?.items || [];
 
         const metas = items.map(function(item) {
@@ -46,12 +45,11 @@ builder.defineCatalogHandler(async function(args) {
     }
 });
 
-// 2. Tự động gọi API chi tiết phim và các tập phim
 builder.defineMetaHandler(async function(args) {
     try {
         var slug = args.id.replace("ophim_", "");
-        const res = await fetch(`${BASE_API}/phim/${slug}`);
-        const json = await res.json();
+        const response = await fetch(`${BASE_API}/phim/${slug}`);
+        const json = await response.json();
         const movie = json.movie || json.data?.item || {};
         const rawEpisodes = json.episodes || json.data?.item?.episodes || [];
 
@@ -86,15 +84,14 @@ builder.defineMetaHandler(async function(args) {
     }
 });
 
-// 3. Tự động lấy link xem trực tiếp (Stream) khi bấm vào tập phim
 builder.defineStreamHandler(async function(args) {
     try {
         var parts = args.id.split("_e");
         var movieSlug = parts[0].replace("ophim_", "");
         var epIndex = parseInt(parts[1], 10) - 1 || 0;
 
-        const res = await fetch(`${BASE_API}/phim/${movieSlug}`);
-        const json = await res.json();
+        const response = await fetch(`${BASE_API}/phim/${movieSlug}`);
+        const json = await response.json();
         const episodes = json.episodes || json.data?.item?.episodes || [];
 
         var streamUrl = "";
