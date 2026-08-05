@@ -3,7 +3,7 @@
     "name": "OPhim của Thầy HUY",
     "version": "1.0.4",
     "description": "Addon xem phim tổng hợp từ OPhim",
-    "icon": "https://raw.githubusercontent.com/youngbi/repo/main/plugins/ophim.ico",
+    "icon": "https://raw.githubusercontent.com/huyhq92/add-on-tester/refs/heads/main/ophim/ophim.ico",
     "resources": [
         "catalog"
     ],
