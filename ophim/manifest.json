@@ -1,0 +1,32 @@
+{
+    "id": "org.thayhuy.ophim",
+    "name": "OPhim của Thầy HUY",
+    "version": "1.0.4",
+    "description": "Addon xem phim tổng hợp từ OPhim",
+    "icon": "https://raw.githubusercontent.com/youngbi/repo/main/plugins/ophim.ico",
+    "resources": [
+        "catalog"
+    ],
+    "types": [
+        "movie",
+        "series"
+    ],
+    "catalogs": [
+        {
+            "type": "movie",
+            "id": "phim-moi",
+            "name": "OPhim - Mới Cập Nhật"
+        },
+        {
+            "type": "movie",
+            "id": "phim-le",
+            "name": "OPhim - Phim Lẻ"
+        },
+        {
+            "type": "series",
+            "id": "phim-bo",
+            "name": "OPhim - Phim Bộ"
+        }
+    ],
+    "idPrefixes": ["ophim_"]
+}
