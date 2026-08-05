@@ -1,0 +1,12 @@
+{
+    "metas": [
+        {
+            "id": "ophim_phim-mau",
+            "type": "movie",
+            "name": "Phim Mẫu OPhim",
+            "poster": "https://img.ophim.live/uploads/movies/thumb-mau.jpg",
+            "description": "Dữ liệu mẫu kiểm tra addon OPhim của Thầy HUY.",
+            "releaseInfo": "2026"
+        }
+    ]
+}
