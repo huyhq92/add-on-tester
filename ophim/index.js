@@ -3,7 +3,7 @@ const { addonBuilder } = require('stremio-addon-sdk');
 const manifest = {
     id: "org.thayhuy.ophim",
     name: "OPhim của Thầy HUY",
-    version: "1.0.5",
+    version: "1.0.6",
     description: "Addon xem phim tổng hợp từ OPhim",
     icon: "https://raw.githubusercontent.com/huyhq92/add-on-tester/refs/heads/main/ophim/ophim.ico",
     resources: ["catalog", "meta", "stream"],
@@ -108,16 +108,8 @@ builder.defineStreamHandler(async function(args) {
         return {
             streams: [
                 {
-                    title: "OPhim HD (Chính Thức)",
-                    url: streamUrl,
-                    behaviorHints: {
-                        proxyHeaders: {
-                            request: {
-                                "User-Agent": "Mozilla/5.0",
-                                "Referer": "https://ophim1.com"
-                            }
-                        }
-                    }
+                    title: "OPhim HD",
+                    url: streamUrl
                 }
             ]
         };
@@ -126,4 +118,15 @@ builder.defineStreamHandler(async function(args) {
     }
 });
 
-module.exports = builder.getInterface();
+// Xuất giao diện chuẩn cho Vercel Serverless Function
+const addonInterface = builder.getInterface();
+const { getRouter } = require('stremio-addon-sdk');
+const router = getRouter(addonInterface);
+
+module.exports = function(req, res) {
+    router(req, res, function() {
+        res.statusCode = 404;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Not found');
+    });
+};
